@@ -5,7 +5,7 @@ import { OrbitControls, Preload, useGLTF } from '@react-three/drei'
 import CanvasLoader from '../Loader'
 
 
-const Computers = ({isMobile}) => {
+const Computers = () => {
   //引入模型
   const computer = useGLTF('./desktop_pc/scene.gltf')
   
@@ -30,8 +30,8 @@ const Computers = ({isMobile}) => {
       {/* 控制位置 */}
       <primitive
         object={computer.scene}
-        scale={isMobile ? 0.7 : 0.75}
-        position={isMobile ? [0,-3,-2.2] : [0, -3.25, -1.5]}
+        scale={0.75}
+        position={[0, -3.25, -1.5]}
         rotation={[-0.01,-0.2,-0.1]}
       />
     </mesh>
@@ -39,26 +39,6 @@ const Computers = ({isMobile}) => {
 }
 
 const ComputersCanvas =() =>{
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(()=>{
-    const mediaQuery = window.matchMedia(
-      '(max-width: 500px)');
-
-      setIsMobile(mediaQuery.matches)
-      const handleMediaQueryChange = (event) =>{
-        setIsMobile(event.matches);
-      }
-
-      mediaQuery.addEventListener('change',
-      handleMediaQueryChange);
-
-      return () => {
-        mediaQuery.removeEventListener('change',
-        handleMediaQueryChange);
-      }
-  }, [])
-
   return (
     <Canvas
       frameLoop='demand'
@@ -75,7 +55,7 @@ const ComputersCanvas =() =>{
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
-        <Computers isMobile={isMobile}/>
+        <Computers/>
 
       </Suspense>
 
