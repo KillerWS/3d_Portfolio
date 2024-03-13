@@ -41,18 +41,25 @@ const Computers = ({isMobile}) => {
 const ComputersCanvas =() =>{
   const [isMobile, setIsMobile] = useState(false)
 
+  //useEffect：每次挂载组件的时候检测屏幕尺寸来判断是否是移动端设备
   useEffect(()=>{
-    const mediaQuery = window.matchMedia(
+    
+    //创建了一个媒体查询对象，用于检测当前屏幕宽度是否小于或等于500像素。（是否为移动端设备）
+      const mediaQuery = window.matchMedia(
       '(max-width: 500px)');
-
+      
       setIsMobile(mediaQuery.matches)
+      
+      //事件处理函数，当屏幕尺寸变化时更新state状态
       const handleMediaQueryChange = (event) =>{
         setIsMobile(event.matches);
       }
 
+      //添加事件处理函数
       mediaQuery.addEventListener('change',
       handleMediaQueryChange);
-
+      
+      //seEffect的返回函数，它在组件卸载或useEffect重新运行之前执行。这个清理函数移除之前添加的事件监听器，以避免内存泄漏。
       return () => {
         mediaQuery.removeEventListener('change',
         handleMediaQueryChange);
